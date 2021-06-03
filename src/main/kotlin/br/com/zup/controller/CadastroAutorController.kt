@@ -4,12 +4,15 @@ import br.com.zup.dto.ModelAutorDTO
 import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Post
+import io.micronaut.validation.Validated
+import javax.validation.Valid
 
-@Controller
+@Validated
+@Controller("/autores")
 class CadastroAutorController {
 
     @Post
-    fun cadastra(@Body modelAutorDTO: ModelAutorDTO){
+    fun cadastra(@Body @Valid modelAutorDTO: ModelAutorDTO){
         println(modelAutorDTO)
     }
 
