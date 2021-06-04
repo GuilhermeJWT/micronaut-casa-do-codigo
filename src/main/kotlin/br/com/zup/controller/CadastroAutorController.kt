@@ -1,6 +1,7 @@
 package br.com.zup.controller
 
 import br.com.zup.dto.ModelAutorDTO
+import br.com.zup.repository.AutorRepository
 import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Post
@@ -9,7 +10,7 @@ import javax.validation.Valid
 
 @Validated
 @Controller("/autores")
-class CadastroAutorController {
+class CadastroAutorController(val autorRepository: AutorRepository) {
 
     @Post
     fun cadastra(@Body @Valid modelAutorDTO: ModelAutorDTO){
@@ -17,6 +18,7 @@ class CadastroAutorController {
         println("requisição: ${modelAutorDTO}")
 
         val autor = modelAutorDTO.converte()
+        autorRepository.save(autor)
 
         println("Autor: ${autor.nome}")
     }
