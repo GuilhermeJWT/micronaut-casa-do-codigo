@@ -1,3 +1,10 @@
+
+buildscript {
+    dependencies{
+        classpath ("org.jetbrains.kotlin:kotlin-noarg:$kotlinVersion")
+    }
+}
+
 plugins {
     id("org.jetbrains.kotlin.jvm") version "1.4.32"
     id("org.jetbrains.kotlin.kapt") version "1.4.32"
@@ -6,6 +13,8 @@ plugins {
     id("org.jetbrains.kotlin.plugin.allopen") version "1.4.32"
     id("org.jetbrains.kotlin.plugin.jpa") version "1.4.32"
 }
+
+apply plugin: "kotlin-jpa"
 
 version = "0.1"
 group = "br.com.zup"
