@@ -46,4 +46,16 @@ class CadastroAutorController(val autorRepository: AutorRepository) {
         return HttpResponse.ok(ModelDetalhesAutorDTO(novoAutor))
     }
 
+    @Delete("/{id}")
+    fun deleta(@PathVariable id: Long): HttpResponse<Any>{
+        val autor = autorRepository.findById(id)
+        
+        if(autor.isEmpty){
+            return HttpResponse.notFound()
+        }
+        val autorRemovido = autor.get()
+        autorRepository.delete(autorRemovido)
+
+        return HttpResponse.ok()
+    }
 }
