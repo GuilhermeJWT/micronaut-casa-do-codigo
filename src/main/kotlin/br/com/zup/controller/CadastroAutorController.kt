@@ -3,12 +3,9 @@ package br.com.zup.controller
 import br.com.zup.dto.ModelAutorDTO
 import br.com.zup.dto.ModelDetalhesAutorDTO
 import br.com.zup.repository.AutorRepository
-import io.micronaut.http.annotation.Body
-import io.micronaut.http.annotation.Controller
-import io.micronaut.http.annotation.Post
 import io.micronaut.validation.Validated
 import io.micronaut.http.HttpResponse
-import io.micronaut.http.annotation.Get
+import io.micronaut.http.annotation.*
 import io.micronaut.http.uri.UriBuilder
 import javax.validation.Valid
 
@@ -33,6 +30,20 @@ class CadastroAutorController(val autorRepository: AutorRepository) {
         val resposta = autores.map { autor ->  ModelDetalhesAutorDTO(autor)}
 
         return HttpResponse.ok(resposta)
+    }
+
+    @Put("/{id}")
+    fun atualiza(@PathVariable id: Long, descricao: String): HttpResponse<Any>{
+        val autor = autorRepository.findById(id)
+        if(autor.isEmpty){
+            return HttpResponse.notFound()
+        }
+
+        val novoAutor = autor.get()
+        novoAutor.descricao = descricao
+        autorRepository.update(novoAutor)
+
+        return HttpResponse.ok(ModelDetalhesAutorDTO(novoAutor))
     }
 
 }
