@@ -7,6 +7,7 @@ import io.micronaut.validation.Validated
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.*
 import io.micronaut.http.uri.UriBuilder
+import javax.transaction.Transactional
 import javax.validation.Valid
 
 @Validated
@@ -32,6 +33,29 @@ class CadastroAutorController(val autorRepository: AutorRepository) {
         return HttpResponse.ok(resposta)
     }
 
+    @Get
+    @Transactional
+    fun lista(@QueryValue(defaultValue = "") email: String): HttpResponse<Any>{
+
+        if(email.isBlank()){
+            val autores = autorRepository.findAll()
+            val resposta = autores.map {autor -> ModelDetalhesAutorDTO(autor)}
+
+            return HttpResponse.ok(resposta)
+        }
+
+        val possivelAutor = autorRepository.findByEmail(email)
+
+        if(possivelAutor.isEmpty){
+            return HttpResponse.notFound()
+        }
+
+        val autor = possivelAutor.get()
+
+        return HttpResponse.ok(ModelDetalhesAutorDTO(autor))
+
+    }
+
     @Put("/{id}")
     fun atualiza(@PathVariable id: Long, descricao: String): HttpResponse<Any>{
         val autor = autorRepository.findById(id)
@@ -49,7 +73,7 @@ class CadastroAutorController(val autorRepository: AutorRepository) {
     @Delete("/{id}")
     fun deleta(@PathVariable id: Long): HttpResponse<Any>{
         val autor = autorRepository.findById(id)
-        
+
         if(autor.isEmpty){
             return HttpResponse.notFound()
         }
