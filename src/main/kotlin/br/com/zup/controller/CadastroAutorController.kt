@@ -13,7 +13,12 @@ class CadastroAutorController {
 
     @Post
     fun cadastra(@Body @Valid modelAutorDTO: ModelAutorDTO){
-        println(modelAutorDTO)
+
+        println("requisição: ${modelAutorDTO}")
+
+        val autor = modelAutorDTO.converte()
+
+        println("Autor: ${autor.nome}")
     }
 
 }

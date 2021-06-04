@@ -1,10 +1,10 @@
 package br.com.zup.dto
 
+import br.com.zup.model.ModelAutor
 import io.micronaut.core.annotation.Introspected
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Size
-import kotlin.math.max
 
 @Introspected
 data class ModelAutorDTO (
@@ -18,4 +18,8 @@ data class ModelAutorDTO (
     @field:NotBlank @field:Size(max = 400)
     val descricao: String
 
-)
+) {
+    fun converte(): ModelAutor {
+        return ModelAutor(nome, email, descricao)
+    }
+}
