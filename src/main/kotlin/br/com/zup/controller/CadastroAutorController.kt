@@ -15,6 +15,7 @@ import javax.validation.Valid
 class CadastroAutorController(val autorRepository: AutorRepository) {
 
     @Post
+    @Transactional
     fun cadastra(@Body @Valid modelAutorDTO: ModelAutorDTO): HttpResponse<Any>{
         val autor = modelAutorDTO.converte()
         autorRepository.save(autor)
@@ -26,6 +27,7 @@ class CadastroAutorController(val autorRepository: AutorRepository) {
     }
 
     @Get
+    @Transactional
     fun lista(): HttpResponse<List<ModelDetalhesAutorDTO>>{
         val autores = autorRepository.findAll()
         val resposta = autores.map { autor ->  ModelDetalhesAutorDTO(autor)}
@@ -57,6 +59,7 @@ class CadastroAutorController(val autorRepository: AutorRepository) {
     }
 
     @Put("/{id}")
+    @Transactional
     fun atualiza(@PathVariable id: Long, descricao: String): HttpResponse<Any>{
         val autor = autorRepository.findById(id)
         if(autor.isEmpty){
@@ -71,6 +74,7 @@ class CadastroAutorController(val autorRepository: AutorRepository) {
     }
 
     @Delete("/{id}")
+    @Transactional
     fun deleta(@PathVariable id: Long): HttpResponse<Any>{
         val autor = autorRepository.findById(id)
 
