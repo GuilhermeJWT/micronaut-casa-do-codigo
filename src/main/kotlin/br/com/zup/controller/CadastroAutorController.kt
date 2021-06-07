@@ -1,7 +1,9 @@
 package br.com.zup.controller
 
+import br.com.zup.client.EnderecoClient
 import br.com.zup.dto.ModelAutorDTO
 import br.com.zup.dto.ModelDetalhesAutorDTO
+import br.com.zup.dto.ModelEnderecoDTO
 import br.com.zup.repository.AutorRepository
 import io.micronaut.validation.Validated
 import io.micronaut.http.HttpResponse
@@ -12,12 +14,15 @@ import javax.validation.Valid
 
 @Validated
 @Controller("/autores")
-class CadastroAutorController(val autorRepository: AutorRepository) {
+class CadastroAutorController(val autorRepository: AutorRepository, val enderecoClient: EnderecoClient) {
 
     @Post
     @Transactional
     fun cadastra(@Body @Valid modelAutorDTO: ModelAutorDTO): HttpResponse<Any>{
-        val autor = modelAutorDTO.converte()
+
+        val enderecoResponse: HttpResponse<ModelEnderecoDTO> = enderecoClient.consulta(modelAutorDTO.cep)
+
+        val autor = modelAutorDTO.converte(enderecoResponse.body()!!)
         autorRepository.save(autor)
 
         val uri = UriBuilder.of("/autores/{id}").expand(mutableMapOf(Pair("id", autor.id)))

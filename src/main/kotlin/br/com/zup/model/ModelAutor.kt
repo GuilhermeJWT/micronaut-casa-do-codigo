@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue
 import javax.persistence.Id
 
 @Entity
-class ModelAutor (val nome: String, val email: String, var descricao: String)
+class ModelAutor (val nome: String, val email: String, var descricao: String, val endereco: ModelEndereco)
 {
     @Id
     @GeneratedValue
