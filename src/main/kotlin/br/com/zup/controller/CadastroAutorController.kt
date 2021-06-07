@@ -31,7 +31,7 @@ class CadastroAutorController(val autorRepository: AutorRepository, val endereco
 
     }
 
-    @Get
+    @Get("/listarTodos")
     @Transactional
     fun lista(): HttpResponse<List<ModelDetalhesAutorDTO>>{
         val autores = autorRepository.findAll()

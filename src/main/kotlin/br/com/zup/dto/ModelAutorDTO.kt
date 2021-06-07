@@ -25,7 +25,7 @@ data class ModelAutorDTO (
 
 ) {
     fun converte(modelEnderecoDTO: ModelEnderecoDTO): ModelAutor {
-        val endereco = ModelEndereco(modelEnderecoDTO, numero)
+        val endereco = ModelEndereco(modelEnderecoDTO, numero, cep)
         return ModelAutor(nome, email, descricao, endereco)
     }
 }

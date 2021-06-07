@@ -1,8 +1,8 @@
 
 buildscript {
     dependencies{
-        classpath ("org.jetbrains.kotlin:kotlin-noarg:$kotlinVersion")
-        classpath ("org.jetbrains.kotlin:kotlin-allopen:$kotlinVersion")
+        //classpath ("org.jetbrains.kotlin:kotlin-noarg:$kotlinVersion")
+        //classpath ("org.jetbrains.kotlin:kotlin-allopen:$kotlinVersion")
 
     }
 }
@@ -16,12 +16,12 @@ plugins {
     id("org.jetbrains.kotlin.plugin.jpa") version "1.4.32"
 }
 
-apply plugin: "kotlin-jpa"
-apply plugin: "kotlin-allopen"
+//apply plugin: "kotlin-jpa"
+//apply plugin: "kotlin-allopen"
 
-allOpen {
-    annotation("io.micronaut.http.annotation.Controller")
-}
+//allOpen {
+    //annotation("io.micronaut.http.annotation.Controller")
+//}
 
 version = "0.1"
 group = "br.com.zup"

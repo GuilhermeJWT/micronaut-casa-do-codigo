@@ -4,7 +4,7 @@ import br.com.zup.dto.ModelEnderecoDTO
 import javax.persistence.Embeddable
 
 @Embeddable
-class ModelEndereco (modelEnderecoDTO: ModelEnderecoDTO, val numero: String){
+class ModelEndereco (modelEnderecoDTO: ModelEnderecoDTO, val cep: String, val numero: String){
 
     val rua = modelEnderecoDTO.rua
     val cidade = modelEnderecoDTO.cidade
